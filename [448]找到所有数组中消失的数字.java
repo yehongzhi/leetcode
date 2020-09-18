@@ -1,26 +1,16 @@
 class Solution {
 
-    public int arrangeCoins(int n) {
-        if (n <= 1) {
-            return n;
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        boolean[] bools = new boolean[nums.length + 1];
+        for (int num : nums) {
+            bools[num] = true;
         }
-        int left = 1;
-        int right = n;
-        while (left + 1 < right) {
-            int mid = (right + left) >>> 1;
-            double partition = getCount(mid);
-            if (partition == n) {
-                return mid;
-            } else if (partition < n) {
-                left = mid;
-            } else {
-                right = mid;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i < bools.length; i++) {
+            if (!bools[i]) {
+                list.add(i);
             }
         }
-        return left;
-    }
-
-    private double getCount(int n) {
-        return (double) (1 + n) * n / 2;
+        return list;
     }
 }
